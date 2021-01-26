@@ -1,3 +1,4 @@
+/*
 package com.mall.user.bootstrap;
 
 import com.alibaba.fastjson.JSON;
@@ -8,22 +9,26 @@ import com.mall.user.dto.UserLoginResponse;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+*/
 /**
  * @author: jia.xue
  * @create: 2020-04-14 21:10
  * @Description
- **/
+ **//*
+
 public class UserLoginServiceTest extends UserProviderApplicationTests {
 
 
     @Autowired
     private ILoginService userLoginService;
 
-    /**
+    */
+/**
      * 用户登录
      * @param
      * @return
-     */
+     *//*
+
     @Test
     public void test01(){
         UserLoginRequest userLoginRequest = new UserLoginRequest();
@@ -41,4 +46,4 @@ public class UserLoginServiceTest extends UserProviderApplicationTests {
         CheckAuthResponse checkAuthResponse = userLoginService.validToken(checkAuthRequest);
         System.out.println(JSON.toJSONString(checkAuthResponse));
     }
-}
+}*/
