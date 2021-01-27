@@ -10,11 +10,12 @@ import com.mall.shopping.dto.NavListResponse;
 import com.mall.shopping.dto.PanelContentDto;
 import com.mall.shopping.services.cache.CacheManager;
 import com.mall.shopping.utils.ExceptionProcessorUtils;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
-
+@Service
 public class IContentServiceImpl implements IContentService {
     @Autowired
     private PanelContentMapper panelContentMapper;

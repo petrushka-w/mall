@@ -15,6 +15,7 @@ import com.mall.shopping.dto.PanelDto;
 import com.mall.shopping.services.cache.CacheManager;
 import com.mall.shopping.utils.ExceptionProcessorUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.dubbo.config.annotation.Service;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
@@ -22,7 +23,7 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+@Service
 public class IHomeServiceImpl implements IHomeService {
 
     @Autowired

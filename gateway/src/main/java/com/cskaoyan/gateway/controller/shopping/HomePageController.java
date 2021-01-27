@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 查看主页
+ */
 @RestController
 @RequestMapping("/shopping")
 public class HomePageController {
