@@ -7,6 +7,7 @@ import com.mall.order.biz.factory.OrderProcessPipelineFactory;
 import com.mall.order.constant.OrderRetCode;
 import com.mall.order.constants.OrderConstants;
 import com.mall.order.dal.entitys.Order;
+import com.mall.order.dal.entitys.OrderItem;
 import com.mall.order.dal.persistence.OrderItemMapper;
 import com.mall.order.dal.persistence.OrderMapper;
 import com.mall.order.dal.persistence.OrderShippingMapper;
@@ -69,6 +70,68 @@ public class OrderCoreServiceImpl implements OrderCoreService {
 			ExceptionProcessorUtils.wrapperHandlerException(response, e);
 		}
 		return response;
+	}
+
+	/**
+	 * 取消订单
+	 * @param request
+	 * @return
+	 */
+	@Override
+	public CancelOrderResponse cancelOrder(CancelOrderRequest request) {
+		CancelOrderResponse response = new CancelOrderResponse();
+		try {
+			request.requestCheck();
+			response.setMsg(OrderRetCode.SUCCESS.getMessage());
+			response.setCode(OrderRetCode.SUCCESS.getCode());
+			updateOrder(OrderConstants.ORDER_STATUS_TRANSACTION_CANCEL,request.getOrderId());
+		}catch (Exception e){
+			ExceptionProcessorUtils.wrapperHandlerException(response,e);
+		}
+		return response;
+	}
+
+	/**
+	 * 删除订单
+	 * @param request
+	 * @return
+	 */
+	@Override
+	public DeleteOrderResponse deleteOrder(DeleteOrderRequest request) {
+		DeleteOrderResponse response = new DeleteOrderResponse();
+		try {
+			request.requestCheck();
+			response.setCode(OrderRetCode.SUCCESS.getCode());
+			response.setMsg(OrderRetCode.SUCCESS.getCode());
+			deleteOrderWithTransaction(request);
+		}catch (Exception e){
+			ExceptionProcessorUtils.wrapperHandlerException(response,e);
+		}
+		return response;
+	}
+
+	@Override
+	public void updateOrder(Integer status, String orderId) {
+		Order order = new Order();
+		order.setOrderId(orderId);
+		order.setStatus(status);
+		order.setCloseTime(new Date());
+		orderMapper.updateByPrimaryKeySelective(order);
+	}
+
+	/**、
+	 * 删除订单的事务处理流程
+	 * @param request
+	 */
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void deleteOrderWithTransaction(DeleteOrderRequest request) {
+		String orderId = request.getOrderId();
+		orderMapper.deleteByPrimaryKey(orderId);
+		Example example = new Example(OrderItem.class);
+		example.createCriteria().andEqualTo("orderId",orderId);
+		orderItemMapper.deleteByExample(example);
+		orderShippingMapper.deleteByPrimaryKey(orderId);
 	}
 
 }

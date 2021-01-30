@@ -6,6 +6,7 @@ import com.mall.order.dal.entitys.OrderShipping;
 import com.mall.order.dto.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * create-date: 2019/7/31-上午9:57
  */
 @Mapper(componentModel = "spring")
+@Component
 public interface OrderConverter {
 
     @Mappings({})
